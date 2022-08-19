@@ -1,0 +1,45 @@
+Task 1.1
+
+mkdir FIT2100
+mkdir TUTORIALS LABS
+cd LABS
+touch LAB1_Task1_1.txt Task2.c
+
+Task 1.2
+
+a)
+absolute paths begin with the ~ character or the slash character
+
+Absolute
+Relative
+Absolute
+Relative
+Relative
+Relative
+absolute
+
+b)
+Relative paths are useful is you were to change the location of a folder, but all then folders within that one will still be accessible because they are relative to the parent folder. Absolute paths are useful because you can access a file from no matter what directory you are in.
+
+c)
+
+cd ~/../
+
+cd .
+
+d)
+This means that it looks to the top of the current directory and then selects a file from there, all files must be accessed from a certain file path, specifying simply the name does not demonstrate the actual location of the file. If trying to run a file without using ./ at the beginning, the correct file would not run.
+
+Task 2
+
+a)
+Because the one with -g has included the debugging information within the executable
+
+b)
+Line number 6, column 19
+
+c)
+With -g (debugger included) it shows the name of the file and the line of the file. Without debugger information it just mentions the absolute path of the executable.
+
+d)
+The program is trying to accept a string entered by the user and then print that to the user. The program is incorrect because it has initialised the variable for the string as a character. It is trying to assign a multi-character string to a string.
