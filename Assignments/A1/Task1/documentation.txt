@@ -1,0 +1,10 @@
+to compile run the command:
+"gcc fileutil.c -o fileutil"
+
+and to execute the utility type:
+"./fileutil"
+
+to excecute this utility on an abritrary file name, pass the filename as a command line argument
+
+eg:
+"./fileutil sampleFileName.txt"
