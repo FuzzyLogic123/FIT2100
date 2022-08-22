@@ -20,6 +20,7 @@ int main(int argc, char const *argv[])
         if (fileName == NULL) {
             char *errorString = "Memory allocation error\n";
             write(2, errorString, strlen(errorString));
+            exit(1);
         }
         strcpy(fileName, argv[1]);
 
@@ -28,9 +29,9 @@ int main(int argc, char const *argv[])
     if ((infile = open(fileName, O_RDONLY)) < 0)
     {
         printf("%s", fileName);
-        // char *errorString = "The file could not be opened\n";
-        // write(2, errorString, strlen(errorString));
-        // exit(1);
+        char *errorString = "The file could not be opened\n";
+        write(2, errorString, strlen(errorString));
+        exit(1);
     }
 
     while (read(infile, buffer, 1) > 0 && spaceCount < 10)
