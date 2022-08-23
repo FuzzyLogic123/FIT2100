@@ -7,24 +7,27 @@
 #include <stdio.h> //remove this for submssion
 
 void printError(char *errorString);
+void appendToFile(char *fileName, char buffer[1]);
 
 int main(int argc, char *argv[])
 {
-    int i, infile, opt;
+    int i, infile, outfile, opt;
     int spaceCount = 0;
     char buffer[1];
     bool append = false;
 
     char *fileName = "sample.txt";
+    char *outfileName;
 
     // https://azrael.digipen.edu/~mmead/www/Courses/CS180/getopt.html
-    while ((opt = getopt(argc, argv, "an:")) != -1)
+    while ((opt = getopt(argc, argv, ":a:n:")) != -1)
     {
         switch (opt)
         {
         case 'a':
-            printf("Option a was provided");
             append = true;
+            outfileName = (char *)malloc(strlen(optarg) + 1);
+            outfileName = optarg;
             break;
         case 'n':
             printf("Option n has arg: %s\n", optarg);
@@ -53,6 +56,8 @@ int main(int argc, char *argv[])
         }
     }
 
+    append = true;
+
     if ((infile = open(fileName, O_RDONLY)) < 0)
     {
         printError("The file could not be opened\n");
@@ -60,17 +65,20 @@ int main(int argc, char *argv[])
 
     while (read(infile, buffer, 1) > 0 && spaceCount < 10)
     {
-        if (strcmp(buffer, " ") != 0)
+        if (strcmp(buffer, " ") == 0)
         {
-            write(1, buffer, 1);
+            spaceCount++;
+        }
+
+        if (append)
+        {
+            appendToFile(outfileName, buffer);
         }
         else
         {
-            write(1, "\n", 2 * sizeof(char));
-            spaceCount++;
+            write(1, buffer, 1);
         }
     }
-    write(1, "\n", 2 * sizeof(char));
 
     close(infile);
 
@@ -81,4 +89,14 @@ void printError(char *errorString)
 {
     write(2, errorString, strlen(errorString));
     exit(1);
+}
+
+void appendToFile(char *fileName, char buffer[1])
+{
+    int outfile;
+    if ((outfile = open(fileName, O_WRONLY | O_APPEND, 0664)) < 0)
+    {
+        exit(1);
+    }
+    write(outfile, buffer, 1);
 }
