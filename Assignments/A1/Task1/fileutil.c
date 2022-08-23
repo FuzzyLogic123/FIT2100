@@ -41,20 +41,17 @@ int main(int argc, char *argv[])
     /* Get all of the non-option arguments */
     if (optind < argc)
     {
-        printf("Non-option args: ");
         while (optind < argc)
-            optind++;
-        printf("%s", argv[optind]);
-        // fileName = (char *)malloc(strlen(argv[optind]) + 1);
-        if (fileName == NULL)
         {
-            printError("Memory allocation error\n");
+            fileName = (char *)malloc(strlen(argv[optind]) + 1);
+            if (fileName == NULL)
+            {
+                printError("Memory allocation error\n");
+            }
+            strcpy(fileName, argv[optind]);
+            optind++;
         }
-        strcpy(fileName, argv[optind]);
-        printf("%s ", fileName);
-        printf("\n");
     }
-
 
     if ((infile = open(fileName, O_RDONLY)) < 0)
     {
