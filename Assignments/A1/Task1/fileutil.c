@@ -2,36 +2,63 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdbool.h>
 
-#include <stdio.h>
+#include <stdio.h> //remove this for submssion
 
-int main(int argc, char const *argv[])
+void printError(char *errorString);
+
+int main(int argc, char *argv[])
 {
-    int i, infile;
+    int i, infile, opt;
     int spaceCount = 0;
     char buffer[1];
+    bool append = false;
 
     char *fileName = "sample.txt";
 
-    if (argc == 2)
+    // https://azrael.digipen.edu/~mmead/www/Courses/CS180/getopt.html
+    while ((opt = getopt(argc, argv, "an:")) != -1)
     {
-        fileName = (char *)malloc(strlen(argv[0]) + 1);
-
-        if (fileName == NULL) {
-            char *errorString = "Memory allocation error\n";
-            write(2, errorString, strlen(errorString));
-            exit(1);
+        switch (opt)
+        {
+        case 'a':
+            printf("Option a was provided");
+            append = true;
+            break;
+        case 'n':
+            printf("Option n has arg: %s\n", optarg);
+            break;
+        case '?':
+            printf("Unknown option: %c\n", optopt);
+            break;
+        case ':':
+            printf("Missing arg for %c\n", optopt);
+            break;
         }
-        strcpy(fileName, argv[1]);
-
     }
+
+    /* Get all of the non-option arguments */
+    if (optind < argc)
+    {
+        printf("Non-option args: ");
+        while (optind < argc)
+            optind++;
+        printf("%s", argv[optind]);
+        // fileName = (char *)malloc(strlen(argv[optind]) + 1);
+        if (fileName == NULL)
+        {
+            printError("Memory allocation error\n");
+        }
+        strcpy(fileName, argv[optind]);
+        printf("%s ", fileName);
+        printf("\n");
+    }
+
 
     if ((infile = open(fileName, O_RDONLY)) < 0)
     {
-        printf("%s", fileName);
-        char *errorString = "The file could not be opened\n";
-        write(2, errorString, strlen(errorString));
-        exit(1);
+        printError("The file could not be opened\n");
     }
 
     while (read(infile, buffer, 1) > 0 && spaceCount < 10)
@@ -51,4 +78,10 @@ int main(int argc, char const *argv[])
     close(infile);
 
     return 0;
+}
+
+void printError(char *errorString)
+{
+    write(2, errorString, strlen(errorString));
+    exit(1);
 }
