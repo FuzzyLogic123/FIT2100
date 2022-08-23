@@ -8,6 +8,7 @@
 
 void printError(char *errorString);
 void appendToFile(char *fileName, char buffer[1]);
+void printStandard(char *string);
 
 int main(int argc, char *argv[])
 {
@@ -80,6 +81,11 @@ int main(int argc, char *argv[])
         }
     }
 
+    if (append)
+    {
+        printStandard("Append successful\n");
+    }
+
     close(infile);
 
     return 0;
@@ -91,10 +97,15 @@ void printError(char *errorString)
     exit(1);
 }
 
+void printStandard(char *string)
+{
+    write(1, string, strlen(string));
+}
+
 void appendToFile(char *fileName, char buffer[1])
 {
     int outfile;
-    if ((outfile = open(fileName, O_WRONLY | O_APPEND, 0664)) < 0)
+    if ((outfile = open(fileName, O_WRONLY | O_APPEND | O_CREAT, 0664)) < 0)
     {
         exit(1);
     }
