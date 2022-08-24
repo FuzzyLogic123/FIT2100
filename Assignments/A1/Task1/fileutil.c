@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     int i, infile, outfile, opt;
     int spaceCount = 0;
     char buffer[1];
+    int numberOfWords = 10;
     bool append = false;
 
     char *fileName = "sample.txt";
@@ -31,13 +32,14 @@ int main(int argc, char *argv[])
             outfileName = optarg;
             break;
         case 'n':
-            printf("Option n has arg: %s\n", optarg);
+            numberOfWords = atoi(optarg);
             break;
         case '?':
-            printf("Unknown option: %c\n", optopt);
+            printError("Unknown option\n");
             break;
         case ':':
-            printf("Missing arg for %c\n", optopt);
+            printError("Missing an arg\n");
+            exit(1);
             break;
         }
     }
@@ -64,7 +66,7 @@ int main(int argc, char *argv[])
         printError("The file could not be opened\n");
     }
 
-    while (read(infile, buffer, 1) > 0 && spaceCount < 10)
+    while (read(infile, buffer, 1) > 0 && spaceCount < numberOfWords)
     {
         if (strcmp(buffer, " ") == 0)
         {

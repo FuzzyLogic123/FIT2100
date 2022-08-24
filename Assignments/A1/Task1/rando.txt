@@ -1,1 +1,1 @@
-does it work with abitrary file names
+only three of these words should be appended
