@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-#include <stdio.h> //remove this for submssion
 
 void printError(char *errorString);
 void appendToFile(char *fileName, char buffer[1]);
@@ -38,7 +37,7 @@ int main(int argc, char *argv[])
             printError("Unknown option\n");
             break;
         case ':':
-            printError("Missing an arg\n");
+            printError("Missing an argument\n");
             exit(1);
             break;
         }
@@ -58,8 +57,6 @@ int main(int argc, char *argv[])
             optind++;
         }
     }
-
-    append = true;
 
     if ((infile = open(fileName, O_RDONLY)) < 0)
     {
@@ -86,6 +83,10 @@ int main(int argc, char *argv[])
     if (append)
     {
         printStandard("Append successful\n");
+    }
+    else
+    {
+        printStandard("\n");
     }
 
     close(infile);
