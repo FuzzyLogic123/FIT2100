@@ -3,17 +3,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
-
-
-void printError(char *errorString);
-void appendToFile(char *fileName, char buffer[1]);
-void printStandard(char *string);
+#include "fileutil.h"
 
 int main(int argc, char *argv[])
 {
     int i, infile, outfile, opt;
     int spaceCount = 0;
     char buffer[1];
+    char previousBuffer = ' ';
     int numberOfWords = 10;
     bool append = false;
 
@@ -65,7 +62,7 @@ int main(int argc, char *argv[])
 
     while (read(infile, buffer, 1) > 0 && spaceCount < numberOfWords)
     {
-        if (strcmp(buffer, " ") == 0)
+        if (strcmp(buffer, " ") == 0 && previousBuffer != ' ')
         {
             spaceCount++;
         }
@@ -78,6 +75,7 @@ int main(int argc, char *argv[])
         {
             write(1, buffer, 1);
         }
+        previousBuffer = *buffer;
     }
 
     if (append)
