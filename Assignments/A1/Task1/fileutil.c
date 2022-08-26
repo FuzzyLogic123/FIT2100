@@ -15,42 +15,14 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include "fileutil.h"
 
-/**
- * @brief prints string to standard error output
- *
- * @param errorString
- */
-void printError(char *errorString);
-
-/**
- * @brief outputs file contents to filename given
- * 
- * @param fileName
- * @param buffer 
- */
-void appendToFile(char *fileName, char *buffer);
-
-/**
- * @brief prints string to standard output
- * 
- * @param string 
- */
-void printStandard(char *string);
-
-/**
- * @brief main function
- * 
- * @param argc 
- * @param argv 
- * @return int 
- */
 
 int main(int argc, char *argv[])
 {
     int i, infile, outfile, opt;
     int spaceCount = 0;
-    char buffer[1];
+    char buffer;
     char previousBuffer = ' ';
     int numberOfWords = 10;
     bool append = false;
@@ -101,22 +73,22 @@ int main(int argc, char *argv[])
         printError("The file could not be opened\n");
     }
 
-    while (read(infile, buffer, 1) > 0 && spaceCount < numberOfWords)
+    while (read(infile, &buffer, 1) > 0 && spaceCount < numberOfWords)
     {
-        if ((*buffer == ' ' || *buffer == '\t' || *buffer == '\n' && (previousBuffer == ' ') || previousBuffer == '\t' || previousBuffer == '\n'))
+        if (isDelimiter(buffer) && !isDelimiter(previousBuffer))
         {
             spaceCount++;
         }
 
         if (append)
         {
-            appendToFile(outfileName, buffer);
+            appendToFile(outfileName, &buffer);
         }
         else
         {
-            write(1, buffer, 1);
+            write(1, &buffer, 1);
         }
-        previousBuffer = *buffer;
+        previousBuffer = buffer;
     }
 
     if (append)
@@ -153,4 +125,16 @@ void appendToFile(char *fileName, char *buffer)
     }
     write(outfile, buffer, 1);
     close(outfile);
+}
+
+bool isDelimiter(char character)
+{
+    char delimiters[] = { ' ', '\n', '\t'};
+    for (int i = 0; i < 3; i++)
+    {
+        if (character == delimiters[i]) {
+            return true;
+        }
+    }
+    return false;
 }
