@@ -17,21 +17,19 @@
 #include <ctype.h>
 #include "fileutil.h"
 
-
 int main(int argc, char *argv[])
 {
     int i, infile, outfile, opt;
     int spaceCount = 0;
     char buffer;
-    char previousBuffer = ' ';
+    char previousBuffer = ' '; // record the previous charcter that has been read
     int numberOfWords = 10;
-    bool append = false;
+    bool append = false; // import boolean library to use true or false
 
-    char *fileName = "sample.txt";
+    char *fileName = "sample.txt"; // set the default file name
     char *outfileName;
 
-    // https://azrael.digipen.edu/~mmead/www/Courses/CS180/getopt.html
-    while ((opt = getopt(argc, argv, ":a:n:")) != -1)
+    while ((opt = getopt(argc, argv, ":a:n:")) != -1) // use build in get opt to read flags from input (see linux man page)
     {
         switch (opt)
         {
@@ -43,10 +41,10 @@ int main(int argc, char *argv[])
         case 'n':
             numberOfWords = atoi(optarg);
             break;
-        case '?':
+        case '?': // flag is unknown
             printError("Unknown option\n");
             break;
-        case ':':
+        case ':': // argument is required and not provided
             printError("Missing an argument\n");
             exit(1);
             break;
@@ -75,7 +73,7 @@ int main(int argc, char *argv[])
 
     while (read(infile, &buffer, 1) > 0 && spaceCount < numberOfWords)
     {
-        if (isDelimiter(buffer) && !isDelimiter(previousBuffer))
+        if (isDelimiter(buffer) && !isDelimiter(previousBuffer)) // check if there is two delimiters in a row
         {
             spaceCount++;
         }
@@ -129,10 +127,11 @@ void appendToFile(char *fileName, char *buffer)
 
 bool isDelimiter(char character)
 {
-    char delimiters[] = { ' ', '\n', '\t'};
+    char delimiters[] = {' ', '\n', '\t'};
     for (int i = 0; i < 3; i++)
     {
-        if (character == delimiters[i]) {
+        if (character == delimiters[i])
+        {
             return true;
         }
     }

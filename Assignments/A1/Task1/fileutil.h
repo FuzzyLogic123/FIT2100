@@ -1,4 +1,15 @@
 /**
+ * @file fileutil.h
+ * @author Patrick Edwards (ID: 32460929)
+ * @brief Defines functions
+ * @version 0.1
+ * @date 2022-08-26
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
+/**
  * @brief prints string to standard error output
  *
  * @param errorString
