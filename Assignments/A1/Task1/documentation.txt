@@ -5,7 +5,7 @@ SYNOPSIS
     fileutil [FILENAME] [OPTION]...
 
 DESCRIPTION
-    To compile run "ggc fileutil.c -o fileutil
+    To compile run "ggc fileutil.c -o fileutil"
 
     Allows file be read to standard output
 
@@ -13,4 +13,4 @@ DESCRIPTION
         appends file contents to filename given
 
     -n [WORD_COUNT]
-        specifies how many words should be read from the file
+        specifies how many words should be read from the file seperated by delimiters: "\n", " ", "\t"
