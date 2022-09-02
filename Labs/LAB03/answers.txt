@@ -1,0 +1,55 @@
+1. htop has the absolute path of the command rather than the actual command itself. ptree lists the name of the command.
+
+I found the PID which was 2205 for the bash command (terminal).
+This appeared the same in htop, however the directory is different.
+(/usr/libexec/gnome-terminal-server)
+
+
+2.
+
+Fork2
+PID: 7072
+PPID 7071
+
+Fork2
+PID: 7071
+PPID: 7043
+
+Bash
+PID: 7043
+PPID: 5832
+
+Code
+PID: 5832
+PPID: 5805
+
+Code
+PID: 5805
+PPID: 5690
+
+Code
+PID: 5690
+PPID: 1359
+
+Gnome-shell
+PID: 1359
+PPID: 1110
+
+systemd
+PID: 1110
+PPID: 1
+
+systemd
+PID: 1
+PPID: 0
+
+
+Task 3
+
+Most of the time the printing of the parent occurs 5 or so times in a row and then the child processand child process alternate. It is important to note that there is a random element to this as it is affected slightly by other processes running in the computer all the time.
+
+Now that the length of the loop is shorter, the processes can run in sucession. The parent processes usually run before the child processes begin. This trend increases as the number gets smaller. At 100, the parent processes run in sucession, then the child processes.
+
+When the for loop increases, the wait time increases, and as a result the scheduler switches tasks between the parent and the child, because each tasks it taking longer and therefore the sheduler switches processes.
+
+The processes trigger alternating, like it is for most small delays, however sometimes it will run two parent processes in a row, or two child processes and vice versa.

@@ -1,10 +1,16 @@
-to compile run the command:
-"gcc fileutil.c -o fileutil"
+NAME
+    fileutil - file reading utility
 
-and to execute the utility type:
-"./fileutil"
+SYNOPSIS
+    fileutil [FILENAME] [OPTION]...
 
-to excecute this utility on an abritrary file name, pass the filename as a command line argument
+DESCRIPTION
+    To compile run "ggc fileutil.c -o fileutil"
 
-eg:
-"./fileutil sampleFileName.txt"
+    Allows file be read to standard output
+
+    -a [FILENAME]
+        appends file contents to filename given
+
+    -n [WORD_COUNT]
+        specifies how many words should be read from the file seperated by delimiters: "\n", " ", "\t"
