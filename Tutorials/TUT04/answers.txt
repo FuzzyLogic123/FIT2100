@@ -1,0 +1,21 @@
+Task 2.
+    LIMIT = 2
+
+    FIT2100: 1
+    Operating: 3
+    Systems: 4
+
+    LIMIT = 1
+
+    FIT2100 = 1
+    Operating = 1
+    Systems = 2
+
+    LIMIT = 3
+    FIT2100 = 1
+    Operating = 7
+    System = 8
+
+Task 3.
+    ABCBC
+    ABBCC
