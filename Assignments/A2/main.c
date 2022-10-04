@@ -1,5 +1,19 @@
 #include <stdio.h>
 
+typedef enum {
+    READY, RUNNING, EXIT
+} process_state_t;
+
+typedef struct {
+    char process_name[11];
+
+    int entryTime;
+    int serviceTime;
+    int remainingTime;
+
+    process_state_t state;
+} pcb_t;
+
 int main(int argc, char *argv[])
 {
     char *filename;
