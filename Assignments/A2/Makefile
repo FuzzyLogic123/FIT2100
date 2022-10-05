@@ -1,10 +1,10 @@
 OBJS = main.o FCFS.o
 CC = gcc
 CFLAGS = -Wall -c
-LFLAGS = -Wall
+LFLAGS = -Wall -g
 
 FCFS: $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o FCFS
+	$(CC) $(LFLAGS) $(OBJS) -o FCFS
 
 main.o: main.c main.h
 	$(CC) $(CFLAGS) main.c

@@ -1,0 +1,11 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/patrick/Documents/FIT2100/Assignments/A2",
+            "binaryPath": "/home/patrick/Documents/FIT2100/Assignments/A2/FCFS",
+            "binaryArgs": [],
+            "command": "makefile"
+        }
+    ],
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
+}
