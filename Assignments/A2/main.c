@@ -4,7 +4,7 @@
 
 char *concatenate_char(char *str, char c);
 int count_lines(FILE *fptr);
-
+int convert_to_int(char c);
 
 typedef enum
 {
@@ -30,11 +30,8 @@ int main(int argc, char *argv[])
     char *filename;
 
     FILE *fptr;
-    char *line = NULL;
     size_t len = 0;
     int read;
-    char c;
-    int spaceCounter = 0;
     int process_count;
     pcb_t *process_array;
 
@@ -47,56 +44,21 @@ int main(int argc, char *argv[])
         filename = "processes.txt";
     }
 
-    if (fptr = fopen("processes.txt", "r"))
-    {
-        process_count = count_lines(fptr) + 1;
-        process_array = malloc(process_count * sizeof(pcb_t));
-        int process_iterator = 0;
-        pcb_t process_information;
-        process_information.process_name[0] = 0; // set the end of the string to null pointer
-
-        while ((c = getc(fptr)) != EOF)
-        {
-            if (c != ' ' && c != '\n')
-            {
-                if (spaceCounter == 0)
-                {
-                    process_information.process_name[strlen(process_information.process_name) + 1] = 0;
-                    process_information.process_name[strlen(process_information.process_name)] = c;
-                }
-                else if (spaceCounter == 1)
-                {
-                    int temp = c - '0';
-                    process_information.entryTime = temp;
-                }
-                else if (spaceCounter == 2)
-                {
-                    int temp = c - '0';
-                    process_information.serviceTime = temp;
-                }
-                else if (spaceCounter == 3)
-                {
-                    int temp = c - '0';
-                    process_information.deadline = temp;
-                }
-            }
-            else
-            {
-                if (spaceCounter == 3) {
-                    process_array[process_iterator] = process_information;
-                    process_information.process_name[0] = 0;
-                    process_iterator++;
-                    spaceCounter = 0;
-                } else {
-                    spaceCounter++;
-                }
-            }
-        }
-        process_array[process_iterator] = process_information;
-    }
-    else
+    fptr = fopen("processes.txt", "r");
+    if (fptr == NULL)
     {
         exit(1);
+    }
+
+    process_count = count_lines(fptr) + 1;
+    process_array = malloc(process_count * sizeof(pcb_t));
+    int process_iterator = 0;
+    pcb_t process_information;
+    while ((read = fscanf(fptr, "%s %i %i %i", process_information.process_name, &process_information.entryTime, &process_information.serviceTime, &process_information.deadline)) != -1)
+    {
+        process_information.remainingTime = process_information.serviceTime;
+        process_array[process_iterator] = process_information;
+        process_iterator++;
     }
 
     printf("\n");
@@ -132,4 +94,9 @@ int count_lines(FILE *fptr)
     }
     fseek(fptr, 0, SEEK_SET);
     return new_line_counter;
+}
+
+int convert_to_int(char c)
+{
+    return c - '0';
 }
