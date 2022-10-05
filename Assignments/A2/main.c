@@ -25,6 +25,18 @@ typedef struct
     process_state_t state;
 } pcb_t;
 
+typedef struct
+{
+    char process_name[11];
+
+    int entryTime;
+    int serviceTime;
+    int remainingTime;
+    int deadline;
+
+    process_state_t state;
+} process_information; // to avoid using the same struct as the processes - seems like a sensible restriction to me
+
 int main(int argc, char *argv[])
 {
     char *filename;
@@ -33,7 +45,7 @@ int main(int argc, char *argv[])
     size_t len = 0;
     int read;
     int process_count;
-    pcb_t *process_array;
+    process_information *process_array;
 
     if (argc > 1)
     {
@@ -51,9 +63,9 @@ int main(int argc, char *argv[])
     }
 
     process_count = count_lines(fptr) + 1;
-    process_array = malloc(process_count * sizeof(pcb_t));
+    process_array = malloc(process_count * sizeof(process_information));
     int process_iterator = 0;
-    pcb_t process_information;
+    process_information process_information;
     while ((read = fscanf(fptr, "%s %i %i %i", process_information.process_name, &process_information.entryTime, &process_information.serviceTime, &process_information.deadline)) != -1)
     {
         process_information.remainingTime = process_information.serviceTime;
