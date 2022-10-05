@@ -42,3 +42,4 @@ typedef struct
 int count_lines(FILE *fptr);
 file_information read_from_file(char *filename);
 char *get_file_name(int argc, char *argv[]);
+pcb_t file_info_to_process(process_information process_info);

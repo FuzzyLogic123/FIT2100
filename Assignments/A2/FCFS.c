@@ -19,12 +19,7 @@ int main(int argc, char *argv[])
         if (file_info.process_array[i].entryTime == time && i < file_info.process_count)
         {
             pcb_t process;
-            process.deadline = file_info.process_array[i].deadline;
-            strcpy(process.process_name, file_info.process_array[i].process_name);
-            process.entryTime = file_info.process_array[i].entryTime;
-            process.serviceTime = file_info.process_array[i].serviceTime;
-            process.remainingTime = file_info.process_array[i].remainingTime;
-            process.state = READY;
+            process = file_info_to_process(file_info.process_array[i]);
             processes_arrived[i] = process;
             printf("Time %i: %s has entered the system.\n", time, process.process_name);
             if (i == j)
@@ -50,7 +45,6 @@ int main(int argc, char *argv[])
 
         /* service a process */
         processes_arrived[j].serviceTime--;
-
         time++;
     }
 

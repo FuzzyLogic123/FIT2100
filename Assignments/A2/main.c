@@ -43,7 +43,8 @@ file_information read_from_file(char *filename)
     return file_info;
 }
 
-char *get_file_name(int argc, char *argv[]) {
+char *get_file_name(int argc, char *argv[])
+{
     if (argc > 1)
     {
         return argv[1];
@@ -52,4 +53,16 @@ char *get_file_name(int argc, char *argv[]) {
     {
         return "processes.txt";
     }
+}
+
+pcb_t file_info_to_process(process_information process_info)
+{
+    pcb_t process;
+    process.deadline = process_info.deadline;
+    strcpy(process.process_name, process_info.process_name);
+    process.entryTime = process_info.entryTime;
+    process.serviceTime = process_info.serviceTime;
+    process.remainingTime = process_info.remainingTime;
+    process.state = READY;
+    return process;
 }
