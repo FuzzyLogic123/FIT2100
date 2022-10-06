@@ -66,3 +66,15 @@ pcb_t file_info_to_process(process_information process_info)
     process.state = READY;
     return process;
 }
+
+FILE *create_file(char* filename) {
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL) {
+        exit(1);
+    }
+    return fp;
+}
+
+void append_process_information(FILE *fp, pcb_t process) {
+    fprintf(fp,"%s %i %i %i\n", process.process_name, process.waitTime, process.turnaroundTime, process.deadlineMet);
+}

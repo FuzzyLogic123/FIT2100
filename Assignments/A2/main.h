@@ -18,6 +18,10 @@ typedef struct
     int remainingTime;
     int deadline;
 
+    int deadlineMet;
+    int turnaroundTime;
+    int waitTime;
+
     process_state_t state;
 } pcb_t;
 
@@ -43,3 +47,5 @@ int count_lines(FILE *fptr);
 file_information read_from_file(char *filename);
 char *get_file_name(int argc, char *argv[]);
 pcb_t file_info_to_process(process_information process_info);
+void append_process_information(FILE *fp, pcb_t process);
+FILE *create_file(char* filename);
