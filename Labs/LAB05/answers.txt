@@ -1,0 +1,38 @@
+3)
+
+Task 1
+	P1: 3 - 7
+	P2: 2 - 6
+	P1: 8
+	P2: 9
+
+Task 2
+	a)
+		Lower bound: 2
+		Upper bound: 50
+	b)
+		Lower bound: 2
+		Upper bound: 25 * N
+
+4)
+
+Task 1
+	a) yes
+	2, 1, 4, 3
+	b) no
+	the smallest gap is 20 bytes of memory, and therefore it is impossible to avoid a deadlock
+
+Task 2)
+	see attached image file
+
+Task 3)
+	Mutual exclusion: No two cars can occupy the same area in the lane in the intersection, use traffic lights. They are using a shared resource.
+
+	Hold and wait: cars occupy the space that they are present in. Dont't move the car until the entire lane is empty.
+	No preemption: cars can only go if the entire lane next to them is clear. Two processes can’t run at once
+	Circular wait: each car is waiting for the car on their left. They are waiting on resources from the next car.
+
+Task 4)
+	detection: call traffic controller
+	avoidance: tunnel, bridge
+	prevention: traffic lights, round about
