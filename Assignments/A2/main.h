@@ -49,3 +49,6 @@ char *get_file_name(int argc, char *argv[]);
 pcb_t file_info_to_process(process_information process_info);
 void append_process_information(FILE *fp, pcb_t process);
 FILE *create_file(char* filename);
+void remove_element(pcb_t *array, int index, int array_length);
+void insert_element(pcb_t *array, pcb_t element, int *current_process, int *array_size);
+pcb_t *get_next_process(pcb_t *processes_arrived, int *current_process, int arrived_processes_len, int time);

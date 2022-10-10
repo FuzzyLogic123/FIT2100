@@ -67,14 +67,45 @@ pcb_t file_info_to_process(process_information process_info)
     return process;
 }
 
-FILE *create_file(char* filename) {
+FILE *create_file(char *filename)
+{
     FILE *fp = fopen(filename, "w");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         exit(1);
     }
     return fp;
 }
 
-void append_process_information(FILE *fp, pcb_t process) {
-    fprintf(fp,"%s %i %i %i\n", process.process_name, process.waitTime, process.turnaroundTime, process.deadlineMet);
+void append_process_information(FILE *fp, pcb_t process)
+{
+    fprintf(fp, "%s %i %i %i\n", process.process_name, process.waitTime, process.turnaroundTime, process.deadlineMet);
+}
+
+void remove_element(pcb_t *array, int index, int array_length)
+{
+    int i;
+    for (i = index; i < array_length - 1; i++)
+    {
+        array[i] = array[i + 1];
+    }
+}
+
+void insert_element(pcb_t *array, pcb_t element, int *current_process, int *array_size) {
+    int i;
+    for (i = *array_size; i > *current_process; i--)
+        array[i] = array[i - 1];
+    array[*current_process] = element;
+    (*array_size)++;
+    (*current_process)++;
+}
+
+pcb_t *get_next_process(pcb_t *processes_arrived, int *current_process, int arrived_processes_len, int time) {
+    (*current_process)++;
+    if (*current_process > arrived_processes_len - 1)
+    {
+        *current_process = 0;
+    }
+    printf("Time %i: %s is in the running state.\n", time, processes_arrived[*current_process].process_name);
+    return &processes_arrived[*current_process];
 }
