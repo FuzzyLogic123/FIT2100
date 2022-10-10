@@ -1,3 +1,15 @@
+/**
+ * @file main.c
+ * @author Patrick Edwards
+ * @brief contains all the functions that will be used throughout
+ * the process simulation files (FCFS.c, deadline.c, RR.c)
+ * @version 0.1
+ * @date 2022-10-11
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include "main.h"
 
 int count_lines(FILE *fptr)
@@ -64,6 +76,7 @@ pcb_t file_info_to_process(process_information process_info)
     process.serviceTime = process_info.serviceTime;
     process.remainingTime = process_info.remainingTime;
     process.state = READY;
+    process.waitTime = -1;
     return process;
 }
 
@@ -91,7 +104,8 @@ void remove_element(pcb_t *array, int index, int array_length)
     }
 }
 
-void insert_element(pcb_t *array, pcb_t element, int *current_process, int *array_size) {
+void insert_element(pcb_t *array, pcb_t element, int *current_process, int *array_size)
+{
     int i;
     for (i = *array_size; i > *current_process; i--)
         array[i] = array[i - 1];
@@ -100,12 +114,30 @@ void insert_element(pcb_t *array, pcb_t element, int *current_process, int *arra
     (*current_process)++;
 }
 
-pcb_t *get_next_process(pcb_t *processes_arrived, int *current_process, int arrived_processes_len, int time) {
+pcb_t *get_next_process(pcb_t *processes_arrived, int *current_process, int arrived_processes_len, int time)
+{
     (*current_process)++;
     if (*current_process > arrived_processes_len - 1)
     {
         *current_process = 0;
     }
+    printf("Time %i: %s is in the running state.\n", time, processes_arrived[*current_process].process_name);
+    return &processes_arrived[*current_process];
+}
+
+pcb_t *get_shortest_deadline(pcb_t *processes_arrived, int *current_process, int arrived_processes_len, int time)
+{
+    // calculate closest deadline from here
+    int closest_deadline = 0;
+    for (size_t i = 0; i < arrived_processes_len; i++)
+    {
+        if (processes_arrived[i].deadline < processes_arrived[closest_deadline].deadline)
+        {
+            closest_deadline = i;
+        }
+    }
+
+    *current_process = closest_deadline;
     printf("Time %i: %s is in the running state.\n", time, processes_arrived[*current_process].process_name);
     return &processes_arrived[*current_process];
 }

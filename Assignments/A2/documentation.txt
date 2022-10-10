@@ -1,0 +1,19 @@
+the following will simulate process sheduling with various sheduling
+algorithims with varying efficiency. The results are accepted as the 
+first command line argument. If an argument is not provided then processes.txt
+is used by default. 
+
+to compile type "make" in the terminal
+
+to run any of the following programs:
+    FCFS (first come first servered)
+    RR (round robin)
+    deadline (deadline based sheduling)
+
+type ./{name of program} in the terminal
+
+for example to run FCFS, you would type the following commands
+into terminal in sequence:
+
+make
+./FCFS

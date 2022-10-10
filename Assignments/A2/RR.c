@@ -1,3 +1,16 @@
+/**
+ * @file RR.c
+ * @author Patrick Edwards
+ * @brief this file simulates process scheduling this file
+ * uses an algorithim where each process in the queue is given
+ * two seconds of cpu time. New processes are added to the back of the queue.
+ * @version 0.1
+ * @date 2022-10-11
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include "main.h"
 
 int main(int argc, char *argv[])
@@ -17,14 +30,13 @@ int main(int argc, char *argv[])
     int time_quantum = 2;
     pcb_t *active_process;
 
-    while (processes_completed < file_info.process_count)
+    while (processes_completed < file_info.process_count) // keep iterating until processes are completed
     {
         for (size_t i = 0; i < file_info.process_count; i++)
         {
             if (file_info.process_array[i].entryTime == time)
             {
                 pcb_t process = file_info_to_process(file_info.process_array[i]);
-                process.waitTime = time + 1;
                 if (current_process == -1) // insert to first place if the array is empty
                 {
                     int tmp = 0;
@@ -44,10 +56,14 @@ int main(int argc, char *argv[])
         if (time == 0)
         {
             active_process = &processes_arrived[current_process];
-            active_process->waitTime = 0;
+            // active_process->waitTime = 0;
             printf("Time %i: %s is in the running state.\n", time, active_process->process_name);
         }
 
+        if (active_process->waitTime == -1)
+        {
+            active_process->waitTime = time - active_process->entryTime;
+        }
         time++;
         time_quantum_tracker++;
 
@@ -57,8 +73,8 @@ int main(int argc, char *argv[])
             active_process->state = EXIT;
             printf("Time %i: %s has finished excecution.\n", time, active_process->process_name);
 
-            active_process->turnaroundTime = time - active_process -> entryTime;
-            active_process->deadlineMet = time <= active_process -> deadline;
+            active_process->turnaroundTime = time - active_process->entryTime;
+            active_process->deadlineMet = (time - active_process->entryTime) <= active_process->deadline;
             append_process_information(results_file, *active_process);
 
             remove_element(processes_arrived, current_process, arrived_processes_len);
@@ -72,7 +88,7 @@ int main(int argc, char *argv[])
             continue;
         }
 
-        if (time_quantum_tracker % time_quantum == 0 && arrived_processes_len > 0)
+        if (time_quantum_tracker % time_quantum == 0 && arrived_processes_len > 0) // get new process if 2 seconds has passed
         {
             active_process = get_next_process(processes_arrived, &current_process, arrived_processes_len, time);
         }
