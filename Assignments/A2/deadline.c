@@ -1,6 +1,6 @@
 /**
  * @file deadline.c
- * @author Patrick Edwards
+ * @author Patrick Edwards 32460929
  * @brief this file simulates process scheduling this file
  * uses an algorithim where the process with the shortest
  * deadline always chosen next.

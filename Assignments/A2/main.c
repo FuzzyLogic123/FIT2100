@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @author Patrick Edwards
+ * @author Patrick Edwards 32460929
  * @brief contains all the functions that will be used throughout
  * the process simulation files (FCFS.c, deadline.c, RR.c)
  * @version 0.1
@@ -40,11 +40,11 @@ file_information read_from_file(char *filename)
         exit(1);
     }
 
-    file_info.process_count = count_lines(fptr) + 1;
+    file_info.process_count = count_lines(fptr) + 1; // there will be one extra process than there is new lines
     process_array = malloc(file_info.process_count * sizeof(process_information));
-    int process_iterator = 0;
+    int process_iterator = 0; // store where the next location of the process should go
     process_information process_information;
-    while ((read = fscanf(fptr, "%s %i %i %i", process_information.process_name, &process_information.entryTime, &process_information.serviceTime, &process_information.deadline)) != -1)
+    while ((read = fscanf(fptr, "%s %i %i %i", process_information.process_name, &process_information.entryTime, &process_information.serviceTime, &process_information.deadline)) != -1) // read the information from the file to an object storing process information
     {
         process_information.remainingTime = process_information.serviceTime;
         process_array[process_iterator] = process_information;
@@ -111,7 +111,7 @@ void insert_element(pcb_t *array, pcb_t element, int *current_process, int *arra
         array[i] = array[i - 1];
     array[*current_process] = element;
     (*array_size)++;
-    (*current_process)++;
+    (*current_process)++; // current process is not incremented to accomidate for the inserted process
 }
 
 pcb_t *get_next_process(pcb_t *processes_arrived, int *current_process, int arrived_processes_len, int time)
@@ -127,11 +127,11 @@ pcb_t *get_next_process(pcb_t *processes_arrived, int *current_process, int arri
 
 pcb_t *get_shortest_deadline(pcb_t *processes_arrived, int *current_process, int arrived_processes_len, int time)
 {
-    // calculate closest deadline from here
+    // calculate closest deadline from the current time
     int closest_deadline = 0;
     for (size_t i = 0; i < arrived_processes_len; i++)
     {
-        if (processes_arrived[i].deadline < processes_arrived[closest_deadline].deadline)
+        if ((processes_arrived[i].deadline - time < processes_arrived[closest_deadline].deadline - time) && (processes_arrived[i].deadline - time > 0))
         {
             closest_deadline = i;
         }

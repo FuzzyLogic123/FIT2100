@@ -1,6 +1,6 @@
 /**
  * @file FCFS.c
- * @author Patrick Edwards
+ * @author Patrick Edwards 32460929
  * @brief this file simulates process scheduling this file
  * uses an algorithim where the next process in the queue is chosen
  * to get cpu time. New processes are added to the back of the queue.

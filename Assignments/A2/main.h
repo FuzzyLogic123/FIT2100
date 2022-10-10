@@ -144,7 +144,7 @@ void insert_element(pcb_t *array, pcb_t element, int *current_process, int *arra
  * 
  * @param processes_arrived 
  * @param current_process 
- * @param arrived_processes_len 
+ * @param arrived_processes_len the count of processes that have arrived
  * @param time 
  * @return pcb_t* 
  */

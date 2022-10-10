@@ -17,3 +17,16 @@ into terminal in sequence:
 
 make
 ./FCFS
+
+## Task 3 Rationale ##
+
+The algorithim I have decided to implement chooses the process
+with the deadline that is closest to the current time. Hence ensuring
+that processes where the deadline is closest to expiring. This works
+becasue if a process is close to the deadline it will be completed as soon
+as possible. Processes that are passed their deadlines will be left to the
+end because doing them any earlier would not maximise the number of processes
+completed.
+
+for example in the case when we have 3 processes as follows:
+
