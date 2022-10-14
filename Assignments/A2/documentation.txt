@@ -12,11 +12,11 @@ to run any of the following programs:
 
 type ./{name of program} in the terminal
 
-for example to run FCFS, you would type the following commands
+for example to run task2-32460929 (task 2 - deadline), you would type the following commands
 into terminal in sequence:
 
 make
-./FCFS
+./task2-32460929
 
 ## Task 3 Rationale ##
 

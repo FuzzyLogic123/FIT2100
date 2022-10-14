@@ -3,25 +3,25 @@ CC = gcc
 CFLAGS = -Wall -c
 LFLAGS = -Wall -g
 
-all: FCFS RR deadline
+all: task1-32460929 task2-32460929 task3-32460929
 
-FCFS: $(OBJS) FCFS.o
-	$(CC) $(LFLAGS) $(OBJS) FCFS.o -o FCFS
+task1-32460929: $(OBJS) task1-32460929.o
+	$(CC) $(LFLAGS) $(OBJS) task1-32460929.o -o task1-32460929
 
-RR: $(OBJS) RR.o
-	$(CC) $(LFLAGS) $(OBJS) RR.o -o RR
+task2-32460929: $(OBJS) task2-32460929.o
+	$(CC) $(LFLAGS) $(OBJS) task2-32460929.o -o task2-32460929
 
-deadline: $(OBJS) deadline.o
-	$(CC) $(LFLAGS) $(OBJS) deadline.o -o deadline
+task3-32460929: $(OBJS) task3-32460929.o
+	$(CC) $(LFLAGS) $(OBJS) task3-32460929.o -o task3-32460929
 
 main.o: main.c main.h
 	$(CC) $(CFLAGS) main.c
 
-FCFS.o: FCFS.c
-	$(CC) $(CFLAGS) FCFS.c
+task1-32460929.o: task1-32460929.c
+	$(CC) $(CFLAGS) task1-32460929.c
 
-RR.o: RR.c
-	$(CC) $(CFLAGS) RR.c
+task2-32460929.o: task2-32460929.c
+	$(CC) $(CFLAGS) task2-32460929.c
 
-deadline.o: deadline.c
-	$(CC) $(CFLAGS) deadline.c
+task3-32460929.o: task3-32460929.c
+	$(CC) $(CFLAGS) task3-32460929.c
